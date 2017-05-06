@@ -1,2 +1,6 @@
-# solvingAlgorithmProblems
-data structures, C++, algorithms, problem solving
+# solving Algorithm Problems
+
+Data structures, 
+C++, 
+algorithms, 
+Problem solving
