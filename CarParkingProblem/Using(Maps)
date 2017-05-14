@@ -3,9 +3,9 @@
 using namespace std;
 
 bool map_compare(std::map<int, int> &map1, std::map<int, int> &map2) {
-    return map1.size() == map2.size()
-        && std::equal(map1.begin(), map1.end(),
-                      map2.begin());
+	return map1.size() == map2.size()
+		&& std::equal(map1.begin(), map1.end(),
+		map2.begin());
 }
 
 int getMapIndexUsingValue(std::map<int, int> &start_map, int value)
@@ -15,7 +15,7 @@ int getMapIndexUsingValue(std::map<int, int> &start_map, int value)
 		{
 			return it->first;
 		}
-   }
+	}
 }
 
 int getIdxForCarSwapWhenEmptyIdxMatches_Map(std::map<int, int> &map1, std::map<int, int> &map2) {
@@ -36,16 +36,16 @@ void swapCars(std::map<int, int> &map1, int a, int b) {
 	map1[a] = map1[b];
 	map1[b] = temp;
 }
-	
+
 int setParkingPosition(int *startArray, int *resultArray) {
 	int stepsCount = 0;
 	std::map<int,int> start_map;
 	std::map<int,int> final_map;
 
-   for (int i = 0; i < 6; i++) {
-	   start_map.insert ( std::pair<int,int>(i,startArray[i]) );
-	   final_map.insert ( std::pair<int,int>(i,resultArray[i]) );
-   }
+	for (int i = 0; i < 6; i++) {
+		start_map.insert ( std::pair<int,int>(i,startArray[i]) );
+		final_map.insert ( std::pair<int,int>(i,resultArray[i]) );
+	}
 
 	while(!map_compare(start_map, final_map))
 	{
@@ -54,15 +54,15 @@ int setParkingPosition(int *startArray, int *resultArray) {
 
 		if(start_map[emptyIdx] == final_map[emptyIdx])
 		{
-		    posToSwapWithEmptyIdx = getIdxForCarSwapWhenEmptyIdxMatches_Map(start_map, final_map);
-		    swapCars(start_map, emptyIdx, posToSwapWithEmptyIdx);
-		    emptyIdx = posToSwapWithEmptyIdx;
+			posToSwapWithEmptyIdx = getIdxForCarSwapWhenEmptyIdxMatches_Map(start_map, final_map);
+			swapCars(start_map, emptyIdx, posToSwapWithEmptyIdx);
+			emptyIdx = posToSwapWithEmptyIdx;
 		}
 		posToSwapWithEmptyIdx = getMapIndexUsingValue(start_map, final_map[emptyIdx]);
 		swapCars(start_map, emptyIdx, posToSwapWithEmptyIdx);
 		stepsCount++;
 	}
-	
+
 	return stepsCount;
 }
 
