@@ -4,20 +4,20 @@ using namespace std;
 bool checkIfCarsInReqPos(int *startArray, int *resultArray) {
 	bool allCarsInReqPos = true;
 	int arrayLength = 6;
-		
+
 	for(int i=0;i<arrayLength; i++)
 	{
-	if(allCarsInReqPos)
-	{
-		if(startArray[i] == resultArray[i])
+		if(allCarsInReqPos)
 		{
-		    allCarsInReqPos = true;
+			if(startArray[i] == resultArray[i])
+			{
+				allCarsInReqPos = true;
+			}
+			else
+			{
+				allCarsInReqPos = false;
+			}
 		}
-		else
-		{
-		    allCarsInReqPos = false;
-		}
-	}
 	}
 
 	return allCarsInReqPos;
@@ -27,14 +27,14 @@ bool checkIfCarsInReqPos(int *startArray, int *resultArray) {
 int getCurrentCarPosIdx(int *startArray, int carToSearch) {
 	int carIdx = 0;
 	int arrayLength = 6;
-		
+
 	for(int i=0;i<arrayLength;i++)
 	{
-	if(startArray[i] == carToSearch)
-	{
-	carIdx = i;
-	break;
-	}
+		if(startArray[i] == carToSearch)
+		{
+			carIdx = i;
+			break;
+		}
 	}
 
 	return carIdx;
@@ -54,12 +54,12 @@ int getIdxForCarSwapWhenEmptyIdxMatches(int *startArray, int *resultArray) {
 
 	for(int i=0;i<arrayLength; i++)
 	{
-	if(startArray[i] != resultArray[i])
-	{
-		//Mismatch btw the two pattern, note this index immidiately.
-		posIndex = i;
-		break;
-	}
+		if(startArray[i] != resultArray[i])
+		{
+			//Mismatch btw the two pattern, note this index immidiately.
+			posIndex = i;
+			break;
+		}
 	}
 
 	return posIndex;
@@ -81,32 +81,32 @@ int setParkingPosition(int *startArray, int *resultArray) {
 		bool isCarPositioned = checkIfCarsInReqPos(startArray, resultArray);
 		if(!isCarPositioned)
 		{
-	    //empty index is -999 taken and get it's index in start array
-	    int emptyIdx = getCurrentCarPosIdx(startArray, -999);
+			//empty index is -999 taken and get it's index in start array
+			int emptyIdx = getCurrentCarPosIdx(startArray, -999);
 
-		int posToSwapWithEmptyIdx = emptyIdx;
+			int posToSwapWithEmptyIdx = emptyIdx;
 
-		//Case: if empty index matches for start and result array while swapping cars, then find which car to swap and get new empty index hereby:
-		//If this Case is removed infinite loop every time it will give me same empty position
-		if(startArray[emptyIdx] == resultArray[emptyIdx])
-		{
-		    posToSwapWithEmptyIdx = getIdxForCarSwapWhenEmptyIdxMatches(startArray, resultArray);
+			//Case: if empty index matches for start and result array while swapping cars, then find which car to swap and get new empty index hereby:
+			//If this Case is removed infinite loop every time it will give me same empty position
+			if(startArray[emptyIdx] == resultArray[emptyIdx])
+			{
+				posToSwapWithEmptyIdx = getIdxForCarSwapWhenEmptyIdxMatches(startArray, resultArray);
 
-			//swap empty index with this position now:
-		    swapCars(startArray, emptyIdx, posToSwapWithEmptyIdx);
+				//swap empty index with this position now:
+				swapCars(startArray, emptyIdx, posToSwapWithEmptyIdx);
 
-			//NOTE: (IMP) Update this as new empty index:
-		    emptyIdx = posToSwapWithEmptyIdx;
-		}
-		
-		//Get Position Index calculated to swap with empty index:
-		posToSwapWithEmptyIdx = getCurrentCarPosIdx(startArray, resultArray[emptyIdx]);
+				//NOTE: (IMP) Update this as new empty index:
+				emptyIdx = posToSwapWithEmptyIdx;
+			}
 
-		//Swap using temp variable:
-		swapCars(startArray, emptyIdx, posToSwapWithEmptyIdx);
+			//Get Position Index calculated to swap with empty index:
+			posToSwapWithEmptyIdx = getCurrentCarPosIdx(startArray, resultArray[emptyIdx]);
 
-		//steps result count:
-		stepsCount++;
+			//Swap using temp variable:
+			swapCars(startArray, emptyIdx, posToSwapWithEmptyIdx);
+
+			//steps result count:
+			stepsCount++;
 		}
 		else
 		{
@@ -118,10 +118,8 @@ int setParkingPosition(int *startArray, int *resultArray) {
 	return stepsCount;
 }
 
-/////////////////////////////////////////////////////////////////////
-
 int main() {
-	
+
 	//Initialze Arrays:
 	int startArray[] = { 1, -999, 2, 5, 3, 4 };
 	int endArray[] = { 5, 1, -999, 4, 2, 3 };
